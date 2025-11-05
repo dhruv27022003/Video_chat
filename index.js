@@ -13,10 +13,11 @@ app.use(cors());
 
 const PORT = process.env.PORT;
 
-app.get('/', (req, res) => {
-	res.send('Running');
-});
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 io.on("connection", (socket) => {
 	socket.emit("me", socket.id);
 
